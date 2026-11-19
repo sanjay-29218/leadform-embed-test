@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en-NZ">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Embed test | Kererū Lane Immigration</title>
+<meta name="description" content="QA embed test page.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="logo.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="topbar"><div class="wrap">
+  <span>Level 3, 12 Example Street, Wellington 6011</span>
+  <span>Mon–Fri 8:30am–5:30pm · <a href="mailto:hello@example.co.nz">hello@example.co.nz</a></span>
+</div></div>
+<header class="site"><div class="wrap">
+  <a class="brand" href="index.html"><img src="logo.svg" alt=""><span><b>Kererū Lane</b><small>Immigration Advisers</small></span></a>
+  <button class="menu-toggle" aria-label="Menu" onclick="document.querySelector('nav.main').classList.toggle('open')">☰</button>
+  <nav class="main">
+    <a href="index.html">Home</a>
+<a href="services.html">Visa services</a>
+<a href="about.html">About us</a>
+    <a class="btn" href="visa-enquiry.html">Book a consultation</a>
+  </nav>
+</div></header>
+<main>
+
+<div class="page-head"><div class="wrap">
+  <div class="crumbs"><a href="index.html">Home</a> / Embed test</div>
+  <h1>Embed test page</h1>
+  <p>QA helper (not linked from the menu). Loads any form with the same embed code, and logs what happens around it.</p>
+</div></div>
+<section><div class="wrap enquiry">
+  <div class="form-shell" id="slot"></div>
+  <aside class="side lab">
+    <div class="card">
+      <form id="cfg">
+        <label for="form">data-form</label><input id="form" name="form">
+        <label for="host">forms host</label><input id="host" name="host">
+        <p style="margin-top:12px"><button class="btn" type="submit">Reload with these</button></p>
+      </form>
+      <p class="notice">Or use the URL: <code>?form=ID&amp;host=https://…</code></p>
+    </div>
+    <div class="card">
+      <b>Page checks</b>
+      <div>This page URL: <span id="url"></span></div>
+      <div>Page loaded at: <span id="loaded"></span></div>
+      <div>Frame height: <span id="h">–</span></div>
+      <p class="notice">If submitting inside the frame changes the page, "loaded at" changes too (scenario 24).</p>
+    </div>
+    <div class="card"><b>postMessage log</b><div class="log" id="log">waiting…
+</div></div>
+  </aside>
+</div></section>
+<script>
+(function(){
+  var q=new URLSearchParams(location.search);
+  var form=q.get('form')||'WVbc1PcrWkeg', host=(q.get('host')||'https://tst1-forms.adviseraide.net').replace(/\/$/,'');
+  document.getElementById('form').value=form; document.getElementById('host').value=host;
+  document.getElementById('url').textContent=location.href;
+  document.getElementById('loaded').textContent=new Date().toLocaleTimeString();
+  var s=document.createElement('script'); s.src=host+'/embed.js'; s.async=true; s.setAttribute('data-form',form);
+  document.getElementById('slot').appendChild(s);
+  var log=document.getElementById('log');
+  addEventListener('message',function(e){
+    var d; try{d=typeof e.data==='string'?e.data:JSON.stringify(e.data)}catch(_){d=String(e.data)}
+    log.textContent+=new Date().toLocaleTimeString()+'  '+e.origin+'  '+d+'\n'; log.scrollTop=log.scrollHeight;
+  });
+  setInterval(function(){var f=document.querySelector('#slot iframe'); if(f) document.getElementById('h').textContent=f.getBoundingClientRect().height.toFixed(0)+'px';},500);
+})();
+</script>
+
+</main>
+<footer class="site"><div class="wrap">
+  <div class="cols">
+    <div>
+      <a class="brand" href="index.html" style="color:#fff"><img src="logo.svg" alt=""><span><b>Kererū Lane</b><small style="color:#9fb3ad">Immigration Advisers</small></span></a>
+      <p style="margin-top:14px">Helping families, skilled workers and students make Aotearoa New Zealand home since 2011.</p>
+    </div>
+    <div><h4>Visas</h4><ul>
+      <li><a href="services.html#work">Work visas</a></li><li><a href="services.html#residence">Residence</a></li>
+      <li><a href="services.html#partner">Partner &amp; family</a></li><li><a href="services.html#student">Student visas</a></li></ul></div>
+    <div><h4>Firm</h4><ul>
+      <li><a href="about.html">About us</a></li><li><a href="about.html#team">Our team</a></li><li><a href="visa-enquiry.html">Contact</a></li></ul></div>
+    <div><h4>Contact</h4><ul>
+      <li>+64 4 000 0000</li><li><a href="mailto:hello@example.co.nz">hello@example.co.nz</a></li><li>Wellington, NZ</li></ul></div>
+  </div>
+  <div class="legal">
+    <span>© 2026 Kererū Lane Immigration. All rights reserved.</span>
+    <span><span class="demo-flag">Demo</span> Fictional firm — test website for AdviserAide lead-form embeds. Not a real business.</span>
+  </div>
+</div></footer>
+</body>
+</html>

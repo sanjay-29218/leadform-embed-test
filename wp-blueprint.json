@@ -1,0 +1,24 @@
+{
+  "$schema": "https://playground.wordpress.net/blueprint-schema.json",
+  "landingPage": "/visa-enquiry/",
+  "preferredVersions": {
+    "php": "8.2",
+    "wp": "latest"
+  },
+  "features": {
+    "networking": true
+  },
+  "login": true,
+  "steps": [
+    {
+      "step": "setSiteOptions",
+      "options": {
+        "permalink_structure": "/%postname%/"
+      }
+    },
+    {
+      "step": "runPHP",
+      "code": "<?php\nrequire '/wordpress/wp-load.php';\nwp_set_current_user(1);\nupdate_option('blogname', 'Tauhou Bay Immigration (WP test)');\nupdate_option('blogdescription', 'Fictional demo site for lead-form embed testing');\n$embed = '<!-- wp:paragraph --><p>Tell us about your visa plans and attach your documents.</p><!-- /wp:paragraph --><!-- wp:html --><script src=\"https://tst1-forms.adviseraide.net/embed.js\" data-form=\"WVbc1PcrWkeg\" async></script><!-- /wp:html -->';\n$id = wp_insert_post(array('post_title'=>'Visa enquiry','post_name'=>'visa-enquiry','post_status'=>'publish','post_type'=>'page','post_content'=>$embed));\n$home = wp_insert_post(array('post_title'=>'Welcome','post_status'=>'publish','post_type'=>'page','post_content'=>'<!-- wp:heading --><h2>Immigration advice in Tauranga</h2><!-- /wp:heading --><!-- wp:paragraph --><p>A fictional firm used to test AdviserAide lead-form embeds. <a href=\"/visa-enquiry/\">Send a visa enquiry</a>.</p><!-- /wp:paragraph -->'));\nupdate_option('show_on_front','page'); update_option('page_on_front',$home);\n"
+    }
+  ]
+}
