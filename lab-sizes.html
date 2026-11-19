@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en-NZ">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Size matrix | Kererū Lane Immigration</title>
+<meta name="description" content="Size matrix">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="logo.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="topbar"><div class="wrap">
+  <span>Level 3, 12 Example Street, Wellington 6011</span>
+  <span>Mon–Fri 8:30am–5:30pm · <a href="mailto:hello@example.co.nz">hello@example.co.nz</a></span>
+</div></div>
+<header class="site"><div class="wrap">
+  <a class="brand" href="index.html"><img src="logo.svg" alt=""><span><b>Kererū Lane</b><small>Immigration Advisers</small></span></a>
+  <button class="menu-toggle" aria-label="Menu" onclick="document.querySelector('nav.main').classList.toggle('open')">☰</button>
+  <nav class="main">
+    <a href="index.html">Home</a>
+<a href="services.html">Visa services</a>
+<a href="about.html">About us</a>
+    <a class="btn" href="visa-enquiry.html">Book a consultation</a>
+  </nav>
+</div></header>
+<main>
+
+<div class="page-head"><div class="wrap">
+  <div class="crumbs"><a href="index.html">Home</a> / <a href="lab.html">Embed lab</a> / Size matrix</div>
+  <h1>Size matrix</h1><p>The same embed at 280–1440px container widths (scaled to fit). Use ?w=375,768 to pick widths.</p>
+</div></div>
+<section><div class="wrap" id="matrix"></div></section>
+<script>
+(function(){
+  var q=new URLSearchParams(location.search);
+  var widths=(q.get('w')||'280,320,375,414,600,768,1024,1440').split(',').map(Number);
+  var root=document.getElementById('matrix');
+  widths.forEach(function(w){
+    var box=document.createElement('div'); box.style.margin='0 0 28px';
+    box.innerHTML='<div style="font:600 14px system-ui;margin-bottom:6px">'+w+'px container <span class=s></span></div>';
+    var outer=document.createElement('div'); outer.style.cssText='position:relative;overflow:hidden;border:1px dashed #9aa';
+    var inner=document.createElement('div'); inner.style.cssText='width:'+w+'px;transform-origin:top left';
+    var s=document.createElement('script'); s.src='https://tst1-forms.adviseraide.net/embed.js'; s.async=true; s.setAttribute('data-form', q.get('form')||'WVbc1PcrWkeg');
+    inner.appendChild(s); outer.appendChild(inner); box.appendChild(outer); root.appendChild(box);
+    function fit(){ var avail=root.clientWidth-2, sc=Math.min(1,avail/w); inner.style.transform='scale('+sc+')';
+      outer.style.width=(w*sc)+'px'; outer.style.height=(inner.offsetHeight*sc)+'px';
+      box.querySelector('.s').textContent=sc<1?'(shown at '+Math.round(sc*100)+'%)':''; }
+    new ResizeObserver(fit).observe(inner); addEventListener('resize',fit); fit();
+  });
+})();
+</script>
+</main>
+<footer class="site"><div class="wrap">
+  <div class="cols">
+    <div>
+      <a class="brand" href="index.html" style="color:#fff"><img src="logo.svg" alt=""><span><b>Kererū Lane</b><small style="color:#9fb3ad">Immigration Advisers</small></span></a>
+      <p style="margin-top:14px">Helping families, skilled workers and students make Aotearoa New Zealand home since 2011.</p>
+    </div>
+    <div><h4>Visas</h4><ul>
+      <li><a href="services.html#work">Work visas</a></li><li><a href="services.html#residence">Residence</a></li>
+      <li><a href="services.html#partner">Partner &amp; family</a></li><li><a href="services.html#student">Student visas</a></li></ul></div>
+    <div><h4>Firm</h4><ul>
+      <li><a href="about.html">About us</a></li><li><a href="about.html#team">Our team</a></li><li><a href="visa-enquiry.html">Contact</a></li></ul></div>
+    <div><h4>Contact</h4><ul>
+      <li>+64 4 000 0000</li><li><a href="mailto:hello@example.co.nz">hello@example.co.nz</a></li><li>Wellington, NZ</li></ul></div>
+  </div>
+  <div class="legal">
+    <span>© 2026 Kererū Lane Immigration. All rights reserved.</span>
+    <span><span class="demo-flag">Demo</span> Fictional firm — test website for AdviserAide lead-form embeds. Not a real business.</span>
+  </div>
+</div></footer>
+</body>
+</html>
